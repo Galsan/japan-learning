@@ -2,10 +2,14 @@ import dynamic from 'next/dynamic';
 const DynamicProduct = dynamic(() => import('../../components/product/product'), {
     ssr: false,
 });
+import { useRouter } from 'next/router';
+
 
 const ProductPage = (req, res) => {
-    console.log(req)
-    console.log(res)
+    const router = useRouter();
+    const query = router.query;
+
+    console.log(query.slug)
     return (
         <div>
             Hello
