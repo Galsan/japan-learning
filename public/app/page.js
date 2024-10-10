@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Carousel from "./components/carousel/carousel";
+import Navbar from "../../src/components/Navbar";
+import Footer from "../../src/components/Footer";
+import Carousel from "../../src/components/carousel/carousel";
 
 
 export default function Home() {

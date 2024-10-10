@@ -1,11 +1,11 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 const ProductProfile = ({ productName, productInfo, onClose }) => {
     return (
         <div>
             <div className="flex">
-                <div className="p-5 w-3/5 h-auto flex justify-center">
-                    <Image width="100%" height="100%" src="https://th.bing.com/th/id/OIP.CgWs10bTykKz7D60Ty0X8wHaE7?rs=1&pid=ImgDetMain" alt="Product Image" />
+                <div className="p-5 w-3/5 min-w-20 flex justify-center">
+                    <Image width={500} height={300} layout="intrinsic" src="https://th.bing.com/th/id/OIP.CgWs10bTykKz7D60Ty0X8wHaE7?rs=1&pid=ImgDetMain" alt="Product Image" />
                 </div>
                 <div>
                     <h2 className="text-2xl">Product name : {productName}, I dont know but {productInfo}</h2>

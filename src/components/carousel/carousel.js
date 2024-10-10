@@ -53,7 +53,11 @@ const Carousel = ({ cardData }) => {
                     cardData.map((d, index) => {
                         return (
                             <div className="flex-none w-1/5 mx-8 cursor-pointer"
-                                key={index} onClick={() => { setOpen(true); setProductInfo(d) }}>
+                                key={index} onClick={() => {
+                                    setOpen(true);
+                                    setProductInfo(d);
+                                    console.log("its working")
+                                }} >
                                 <Card
                                     imageUrl="https://th.bing.com/th/id/OIP.CgWs10bTykKz7D60Ty0X8wHaE7?rs=1&pid=ImgDetMain"
                                     title={d}
@@ -63,14 +67,12 @@ const Carousel = ({ cardData }) => {
                     })
                 }
             </div>
-            <div className="absolute top-0 h-36 w-full flex justify-between items-center text-slate-800 px-10 text-3xl">
-                <button onClick={previousSlide}>
-                    <BsFillArrowLeftCircleFill />
-                </button>
-                <button onClick={nextSlide}>
-                    <BsFillArrowRightCircleFill />
-                </button>
-            </div>
+            <button className='absolute top-1/3 text-slate-800 px-10 text-3xl' onClick={previousSlide}>
+                <BsFillArrowLeftCircleFill />
+            </button>
+            <button onClick={nextSlide} className='absolute top-1/3 right-0 text-slate-800 px-10 text-3xl'>
+                <BsFillArrowRightCircleFill />
+            </button>
 
             <div className="relative bottom-0 py-4 flex justify-center gap-3 w-full">
                 {indicatorArray.map((e, index) => (
