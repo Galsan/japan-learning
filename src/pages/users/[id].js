@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 
 const UserProfile = () => {
+
     const router = useRouter();
     const { id } = router.query;
+
 
     return (
         <div>

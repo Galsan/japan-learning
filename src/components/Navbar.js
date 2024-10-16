@@ -8,8 +8,11 @@ const Navbar = () => {
 
     const menuItems = [
         { id: 1, label: 'Home', href: '/' },
-        { id: 2, label: 'About', href: '/about' },
-        { id: 3, label: 'Services', href: '/services' },
+        { id: 2, label: 'About', href: '/#about' },
+        { id: 3, label: 'Contact', href: '/#contact' },
+        { id: 3, label: 'Services', href: '/#services' },
+        { id: 4, label: 'SIGNIN', href: '/signIn' },
+        { id: 5, label: 'SIGNUP', href: '/signUp' },
         // Add more menu items as needed
     ];
 
@@ -30,6 +33,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         ))}
+
                     </ul>
                     <div
                         onClick={() => setMenuOpen(!isMenuOpen)}
@@ -38,6 +42,7 @@ const Navbar = () => {
                         {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
                     </div>
                 </div>
+
             </div>
             {isMenuOpen && (
                 <ul className="md:hidden bg-gray-700 text-white text-right">
