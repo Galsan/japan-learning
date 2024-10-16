@@ -36,6 +36,6 @@ export default async function handler(req, res) {
     } finally {
         await client.close();
     }
-    res.status(200).json({ data, message: 'Connected to MongoDB' });
+    res.status(200).json({ res: data, message: 'Connected to MongoDB' });
     // Respond with the list of users as JSON
 }

@@ -8,12 +8,12 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        // Simulate loading time (you can replace this with actual data fetching)
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-    }, []);
+    // useEffect(() => {
+    //     // Simulate loading time (you can replace this with actual data fetching)
+    //     setTimeout(() => {
+    //         setIsLoading(false);
+    //     }, 2000);
+    // }, []);
 
     const cardData = [2, 5, 7, 8, 11, 15, 17, 33, 55, 66, 88, 99, 101, 120, 5, 7, 8, 11, 15, 17, 33, 55, 66, 81];
 
@@ -25,12 +25,6 @@ export default function Home() {
                 <div className="content">
 
                     <Navbar />
-                    <nav className="menu">
-                        <a href="#home">Home</a>
-                        <a href="#about">About</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#lessons">Lessons</a>
-                    </nav>
 
                     <div >
                         <div className="bg-[url('/images/backgroundG.jpg')] bg-cover bg-center h-dvh w-dvw"></div>
