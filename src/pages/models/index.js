@@ -1,3 +1,5 @@
-import User from "./userModel";
+import userModel from "./userModel";
+
+const User = userModel;
 
 export default User;
