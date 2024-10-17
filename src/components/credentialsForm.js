@@ -14,7 +14,7 @@ export function CredentialsForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = e.currentTarget;
+        const data = new FormData(e.currentTarget);
 
         const signInResponse = await signIn("credentials", {
             email: data.get("email"),

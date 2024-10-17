@@ -10,9 +10,9 @@ const Navbar = () => {
         { id: 1, label: 'Home', href: '/' },
         { id: 2, label: 'About', href: '/#about' },
         { id: 3, label: 'Contact', href: '/#contact' },
-        { id: 3, label: 'Services', href: '/#services' },
-        { id: 4, label: 'SIGNIN', href: '/signIn' },
-        { id: 5, label: 'SIGNUP', href: '/signUp' },
+        { id: 4, label: 'Services', href: '/#services' },
+        { id: 5, label: 'SIGNIN', href: '/signIn' },
+        { id: 6, label: 'SIGNUP', href: '/signUp' },
         // Add more menu items as needed
     ];
 
