@@ -4,29 +4,55 @@ const DynamicProduct = dynamic(() => import('../../components/product/product'),
 });
 import { useRouter } from 'next/router';
 import useSWR from 'swr'
-
+import { getSession, getToken } from 'next-auth/react';
+import UserProfile from '../users/[id]';
 
 const ProductPage = (req, res) => {
     const router = useRouter();
     const query = router.query;
 
-    const fetcher = (url) => fetch(url).then((res) => res.json());
+    const { data: session } = useSWR('/api/auth/session', getSession);
+    console.log("session ", session);
+    // const { data: token } = useSWR('/api/auth/session', getToken);
+    // console.log("token", token)
 
 
-    const { data, error } = useSWR('http://localhost:3000/api/testMongo-ds', fetcher);
-    if (error) return <div>Failed to load</div>;
-    if (!data) return <div>Loading...</div>;
+    const fetcher = (url) => fetch(
+        url,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    ).then((res) => res.json());
 
-    console.log(query.id)
-    console.log("testing after data load", data)
+
+    const { data: novelData, error: novelError, isLoading: novelLoading } = useSWR('http://localhost:3000/api/testMongo-ds', fetcher);
+
+    const { data: userData, error: userError, isLoading: userLoading } = useSWR('http://localhost:3000/api/user/privateUser', fetcher);
+
+    if (userError) {
+        console.log("its working over here")
+        // router.push("/signIn")
+    }
+
+
+    if (novelError || userError) return <div>Failed to load</div>;
+    if (novelLoading || userLoading) return <div>Loading...</div>;
+
+    console.log("testing after data load", novelData);
+    console.log("privateUserRes", userData, "and", userLoading);
     return (
         <div>
             <h1>Hello: its product {query.id}</h1>
             {/* <DynamicProduct /> */}
 
             <div>
-                {data && data.res ? data.res[0].plot : "hhe"}
+                {novelData && novelData.res ? novelData.res[0].plot : "hhe"}
             </div>
+            <div>message: {userData.message}</div>
+            <div>name: {userData.user.name}</div>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -21,6 +21,11 @@ export function CredentialsForm() {
             password: data.get("password"),
             redirect: false,
         });
+
+        console.log("signInResponse", signInResponse);
+        const session = await getSession();
+        console.log("User session Info:", session); // { id, email, name }
+        console.log("Token:", session.accessToken);
 
         if (signInResponse && !signInResponse.error) {
             //Redirect to somewhere (/maybe started point)

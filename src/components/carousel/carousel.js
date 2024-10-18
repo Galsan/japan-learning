@@ -26,10 +26,10 @@ const Carousel = ({ cardData }) => {
         else setCurrent(current + 1);
     }
 
-    useEffect(() => {
-        console.log("its working over here")
-        console.log("its the currenct ", current)
-    }, [current])
+    // useEffect(() => {
+    //     console.log("its working over here")
+    //     console.log("its the currenct ", current)
+    // }, [current])
 
     return (
         <div className="overflow-hidden relative w-full">

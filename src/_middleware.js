@@ -1,17 +1,18 @@
-import { NextResponse } from "next/server";
-import csrf from "csurf";
-import cookieParser from "cookie-parser";
+import { NextResponse } from 'next/server';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 
 const csrfProtection = csrf({ cookie: true });
 
-const middleware = () => {
-    cookieParser()(req, {}, () => { });
-    csrfProtection(req, {}, (err) => {
-        if (err) {
-            return NextResponse.redirect('/error');
-        }
+const middleware = (req, res, next) => {
+    cookieParser()(req, res, () => {
+        csrfProtection(req, res, (err) => {
+            if (err) {
+                return res.redirect('/error'); // Ensure correct redirection
+            }
+            next(); // Proceed to next middleware or route handler
+        });
     });
-    return NextResponse.next();
-}
+};
 
-export default middleware
+export default middleware;
