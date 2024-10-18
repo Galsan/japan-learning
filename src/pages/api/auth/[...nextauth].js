@@ -2,12 +2,11 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/pages/models";
+import bcrypt from "bcrypt";
 import { connectToDB } from "@/pages/utils/mongooseImp";
-const bcrypt = require('bcrypt');
 
 const findUserByEmail = async (email) => {
     try {
-        console.log("in find by email", email);
         await connectToDB();
 
         const user = await User.findOne({ email: email });
@@ -20,22 +19,6 @@ const findUserByEmail = async (email) => {
         throw error
     }
 }
-
-const comparePasswords = async (plainPassword, hashedPassword) => {
-    try {
-        const match = await bcrypt.compare(plainPassword, hashedPassword);
-        if (match) {
-            console.log('Password matches!');
-            return true;
-        } else {
-            console.log('Password does not match.');
-            return false;
-        }
-    } catch (error) {
-        console.error('Error comparing passwords:', error);
-        throw error;
-    }
-};
 
 export const authOptions = {
     providers: [
@@ -56,24 +39,16 @@ export const authOptions = {
 
                 if (!credentials || !credentials.email || !credentials.password) return null
 
-                console.log("credenTials", credentials)
-
                 //here find our user from db or ldap by email
-                const myUser = await findUserByEmail(credentials.email);
-                console.log("myUser", myUser)
-                console.log("credenTials", credentials)
-
-
-                // const salt = await bcrypt.genSalt(10);
-                // credentials.password = await bcrypt.hash(credentials.password, salt);
-                // console.log(myUser.password === credentials.password);
-                // console.log("it credentials password", credentials.password);
+                const user = await findUserByEmail(credentials.email);
+                // console.log("user", user)
+                // console.log("credenTials", credentials)
 
                 //here login authentication
-                if (myUser && await bcrypt.compare(credentials.password, myUser.password)) {
+                if (user && await bcrypt.compare(credentials.password, user.password)) {
 
-                    console.log("it comes over here, aiiiiin its working ")
-                    return myUser
+                    // console.log("it comes over here, aiiiiin its working ", user)
+                    return { id: user._id, email: user.email, name: user.username };
                 }
 
                 return null
@@ -84,15 +59,36 @@ export const authOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
         })
     ],
-
-    // callbacks: {
-    //     async signIn({ account, profile }) {
-    //         if (account.provider === "google") {
-    //             return profile.email_verified && profile.email.endsWith("@example.com")
-    //         }
-    //         return true // Do different verification for other providers that don't have `email_verified`
-    //     },
-    // }
+    csrf: true,
+    secret: process.env.NEXTAUTH_SECRET, // Reference the secret
+    session: {
+        jwt: true,
+        maxAge: 30 * 24 * 60 * 60 * 0 + 60 * 60, // 30 days
+    },
+    callbacks: {
+        // async signIn({ account, profile }) {
+        //     if (account.provider === "google") {
+        //         return profile.email_verified && profile.email.endsWith("@example.com")
+        //     }
+        //     return true // Do different verification for other providers that don't have `email_verified`
+        // },
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+                token.name = user.name;
+            }
+            //todo     access token uusgeed terniigee onooh
+            return token;
+        },
+        async session({ session, token }) {
+            session.user.id = token.id;
+            session.user.email = token.email;
+            session.user.name = token.name;
+            session.accessToken = token;
+            return session;
+        }
+    }
 }
 
 export default NextAuth(authOptions)

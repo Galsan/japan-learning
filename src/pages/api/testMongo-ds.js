@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
     try {
         await client.connect();
-        console.log('Connected to MongoDB');
+        // console.log('Connected to MongoDB');
         const database = client.db('sample_mflix');  // Replace <DBNAME> with your actual database name
         const collection = database.collection('movies');  // Replace <COLLECTION> with your actual collection name
 
@@ -27,9 +27,7 @@ export default async function handler(req, res) {
 
         data = await collection.find(query).toArray();
 
-        console.log("data", data)
-
-
+        // console.log("data", data)
         // You can perform database operations here
     } catch (err) {
         console.error('MongoDB connection error:', err);
