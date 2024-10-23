@@ -7,6 +7,10 @@ const userSchema = new Schema({
   username: String,
   email: String,
   password: String,
+  role: {
+    type: String,
+    enum: ["admin", "teacher", "user"]
+  },
 });
 
 // Pre-save middleware to hash the password

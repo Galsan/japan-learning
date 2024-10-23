@@ -5,7 +5,6 @@ const DynamicProduct = dynamic(() => import('../../components/product/product'),
 import { useRouter } from 'next/router';
 import useSWR from 'swr'
 import { getSession, getToken } from 'next-auth/react';
-import UserProfile from '../users/[id]';
 
 const ProductPage = (req, res) => {
     const router = useRouter();
@@ -28,15 +27,9 @@ const ProductPage = (req, res) => {
     ).then((res) => res.json());
 
 
-    const { data: novelData, error: novelError, isLoading: novelLoading } = useSWR('http://localhost:3000/api/testMongo-ds', fetcher);
+    const { data: novelData, error: novelError, isLoading: novelLoading } = useSWR('http://localhost:3000/api/mongodbLibUsage', fetcher);
 
     const { data: userData, error: userError, isLoading: userLoading } = useSWR('http://localhost:3000/api/user/privateUser', fetcher);
-
-    if (userError) {
-        console.log("its working over here")
-        // router.push("/signIn")
-    }
-
 
     if (novelError || userError) return <div>Failed to load</div>;
     if (novelLoading || userLoading) return <div>Loading...</div>;
@@ -52,7 +45,7 @@ const ProductPage = (req, res) => {
                 {novelData && novelData.res ? novelData.res[0].plot : "hhe"}
             </div>
             <div>message: {userData.message}</div>
-            <div>name: {userData.user.name}</div>
+            <div>name: {userData.user.username}</div>
         </div>
     );
 }
