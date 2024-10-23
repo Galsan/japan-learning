@@ -29,7 +29,11 @@ export function CredentialsForm() {
 
         if (signInResponse && !signInResponse.error) {
             //Redirect to somewhere (/maybe started point)
-            router.push("/");
+            if (session.user.role === "admin") {
+                router.push("/admin/adminHome");
+            }
+            else
+                router.push("/");
         } else {
             console.log("Error: ", signInResponse);
             setError("Your Email or Password is wrong!");

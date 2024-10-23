@@ -23,7 +23,7 @@ const findUserByEmail = async (email) => {
 export const authOptions = {
     providers: [
         CredentialsProvider({
-            name: "Sign in",
+            name: "Mongo Sign In",
             Credentials: {
                 email: {
                     label: "Email",
@@ -36,19 +36,14 @@ export const authOptions = {
                 }
             },
             async authorize(credentials) {
+                if (!credentials || !credentials.email || !credentials.password)
+                    //email password baihgui uyd butsaah response
+                    return null
 
-                if (!credentials || !credentials.email || !credentials.password) return null
-
-                //here find our user from db or ldap by email
                 const user = await findUserByEmail(credentials.email);
-                // console.log("user", user)
-                // console.log("credenTials", credentials)
 
-                //here login authentication
                 if (user && await bcrypt.compare(credentials.password, user.password)) {
-
-                    // console.log("it comes over here, aiiiiin its working ", user)
-                    return { id: user._id, email: user.email, name: user.username };
+                    return { id: user._id, email: user.email, username: user.username, role: user.role };
                 }
 
                 return null
@@ -66,25 +61,35 @@ export const authOptions = {
         maxAge: 30 * 24 * 60 * 60 * 0 + 60 * 60, // 30 days
     },
     callbacks: {
-        // async signIn({ account, profile }) {
-        //     if (account.provider === "google") {
-        //         return profile.email_verified && profile.email.endsWith("@example.com")
-        //     }
-        //     return true // Do different verification for other providers that don't have `email_verified`
-        // },
+        async signIn({ user, account, profile }) {
+
+            const dbUser = await findUserByEmail(user.email);
+
+            if (dbUser) {
+                // User already exists
+                return true;
+            } else {
+                return `/newUser?email=${user.email}`;
+            }
+            // if (account.provider === "google") {
+            //     return profile.email_verified && profile.email.endsWith("@example.com")
+            // }
+            // return true // Do different verification for other providers that don't have `email_verified`
+        },
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
-                token.name = user.name;
+                token.username = user.username;
+                token.role = user.role;
             }
-            //todo     access token uusgeed terniigee onooh
             return token;
         },
         async session({ session, token }) {
             session.user.id = token.id;
             session.user.email = token.email;
-            session.user.name = token.name;
+            session.user.username = token.username;
+            session.user.role = token.role;
             session.accessToken = token;
             return session;
         }
