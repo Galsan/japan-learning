@@ -1,13 +1,14 @@
 import { useState } from "react";
 import UserList from "@/components/userList";
-import Navbar from "@/components/Navbar";
-import AdminNav from "@/components/AdminNav";
+import AuthenticatedNav from "@/components/AuthenticatedNav";
+import withAuth from "@/components/withAuth";
+
 const AdminHome = () => {
     const [currentMenu, setCurrentMenu] = useState("user");
 
     return (
         <div className="w-full flex flex-col">
-            <AdminNav />
+            <AuthenticatedNav role="admin" />
             <div>
                 <div className="flex justify-around pt-2">
                     <button onClick={() => setCurrentMenu("user")}>Хэрэглэгчийн жягсаалт</button>
@@ -19,4 +20,4 @@ const AdminHome = () => {
     );
 }
 
-export default AdminHome
+export default withAuth(AdminHome, ['admin'])

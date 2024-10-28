@@ -1,16 +1,15 @@
-import { connectToDB } from "@/pages/utils/mongooseImp";
-import { User } from "@/pages/models";
+import { connectToDB } from "../../utils/mongooseImp";
+import User from "../../models";
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
         await connectToDB();
-        console.log("req.query.role",)
 
         try {
-            const users = await User.find({ role: req.query.role });
+            const users = await User.find({ role: "user" });
             console.log("users:", users)
 
-            res.status(200).json({ users });
+            res.status(200).json({ data: users });
         } catch (error) {
             res.status(500).json({ message: 'Error finding user', error });
         }

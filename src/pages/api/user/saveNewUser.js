@@ -1,5 +1,5 @@
 import { connectToDB } from "../../utils/mongooseImp";
-import User from "../../models";
+import { User } from "../../models";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {

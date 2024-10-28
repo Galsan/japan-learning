@@ -1,5 +1,5 @@
 import { connectToDB } from "@/pages/utils/mongooseImp";
-import User from "@/pages/models";
+import { User } from "@/pages/models";
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {

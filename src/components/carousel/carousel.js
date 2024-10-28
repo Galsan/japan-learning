@@ -6,18 +6,18 @@ import ProductModal from '../modal/modal';
 
 const Carousel = ({ cardData }) => {
     let [current, setCurrent] = useState(0);
-    const [productInfo, setProductInfo] = useState(cardData[0]);
+    const [productInfo, setProductInfo] = useState(cardData ? cardData[0] : null);
     const [open, setOpen] = useState(false);
 
     const indicatorArray = [];
-    for (let i = 0; i < cardData.length; i += 4) {
+    for (let i = 0; i < cardData?.length; i += 4) {
         indicatorArray.push(i);
     }
 
     const lastPage = indicatorArray[indicatorArray.length - 1];
 
     let previousSlide = () => {
-        if (current === 0) setCurrent(cardData.length - 1);
+        if (current === 0) setCurrent(cardData?.length - 1);
         else setCurrent(current - 1);
     }
 
@@ -50,7 +50,7 @@ const Carousel = ({ cardData }) => {
                     transform: `translateX(-${current * 25}%)`
                 }}>
                 {
-                    cardData.map((d, index) => {
+                    cardData?.map((d, index) => {
                         return (
                             <div className="flex-none w-1/5 mx-8 cursor-pointer"
                                 key={index} onClick={() => {

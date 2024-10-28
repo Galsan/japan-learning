@@ -1,13 +1,8 @@
-"use client";
-
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-// interface CredentialsFormProps {
-//     csrfToken?: string;
-// }
-//props: CredentialsFormProps
+
 export function CredentialsForm() {
     const router = useRouter();
     const [error, setError] = useState(null);
@@ -24,19 +19,15 @@ export function CredentialsForm() {
 
         console.log("signInResponse", signInResponse);
         const session = await getSession();
-        console.log("User session Info:", session); // { id, email, name, role }
-        // console.log("Token:", session.accessToken);
+        console.log("User session Info:", session); // { id, email, name }
 
         if (signInResponse && !signInResponse.error) {
             //Redirect to somewhere (/maybe started point)
             if (session.user.role === "admin") {
                 router.push("/admin");
-            } else if (session.user.role === "teacher") {
-                // router.push(`/teacher/${session.user.email}`);
-                router.push(`/teacher`);
             }
             else
-                router.push("/user");
+                router.push("/");
         } else {
             console.log("Error: ", signInResponse);
             setError("Your Email or Password is wrong!");
