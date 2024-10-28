@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "@/pages/models";
+import { User } from "@/pages/models";
 import bcrypt from "bcrypt";
 import { connectToDB } from "@/pages/utils/mongooseImp";
 

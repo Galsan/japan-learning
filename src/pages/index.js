@@ -27,7 +27,7 @@ export default function Home() {
                     <Navbar />
 
                     <div >
-                        <div className="bg-[url('/images/backgroundG.jpg')] bg-cover bg-center h-dvh w-dvw"></div>
+                        <div className="bg-[url('/images/backgroundG.jpg')] bg-cover bg-center max-w-dvw min-h-dvh"></div>
                     </div>
 
                     <div className="container mx-auto p-4 flex px-12">

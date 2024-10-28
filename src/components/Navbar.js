@@ -11,9 +11,7 @@ const Navbar = () => {
         { id: 2, label: 'About', href: '/#about' },
         { id: 3, label: 'Contact', href: '/#contact' },
         { id: 4, label: 'Services', href: '/#services' },
-        { id: 5, label: 'SIGNIN', href: '/signIn' },
-        { id: 6, label: 'SIGNUP', href: '/signUp' },
-        // Add more menu items as needed
+        { id: 5, label: 'Sign In/Sign Up', href: '/auth/signIn' },
     ];
 
     return (

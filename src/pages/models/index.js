@@ -1,5 +1,13 @@
-import userModel from "./userModel";
+import User from './user';
+import Course from './course';
+import TeacherRequest from './teacherRequest';
+import Purchasement from './user/purchasement';
 
-const User = userModel;
+//public using schemas
+export { User, Course, TeacherRequest };
 
-export default User;
+//user using schemas
+export { Purchasement }
+
+//teacher using schemas
+//admin using schemas
