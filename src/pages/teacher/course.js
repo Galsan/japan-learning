@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { getSession } from 'next-auth/react';
 import { useState } from 'react';
 import Modal from '@/components/modal/modal';
 import AuthenticatedNav from "@/components/AuthenticatedNav";
@@ -7,25 +6,12 @@ import AuthenticatedNav from "@/components/AuthenticatedNav";
 export default function Course() {
     const [open, setOpen] = useState(false);
 
-    const { data: session, isLoading } = useSWR('/api/auth/session', getSession);
-    const fetcher = (url) => fetch(
-        url,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    ).then((res) => res.json());
-
-    const { data: courseList, error, isLoading: userLoading } = useSWR(`http://localhost:3000/api/course/findCourseByTeacher`, fetcher);
+    const { data: courseList, error, isLoading: userLoading } = useSWR(`http://localhost:3000/api/course/findCourseByTeacher`);
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        // var object = {};
-        // formData.forEach((value, key) => object[key] = value);
 
         const body = {
             courseName: formData.get("courseName"),
@@ -35,8 +21,6 @@ export default function Course() {
             ThumnailUrl: formData.get("ThumnailUrl")
         };
 
-        console.log("here is my body", JSON.stringify(body))
-
         const res = await fetch('/api/course/saveCourse', {
             method: 'POST',
             headers: {
@@ -45,12 +29,16 @@ export default function Course() {
             body: JSON.stringify(body),
         });
 
+        if (res.ok) {
+            setOpen(false);
+            alert('Saved your course');
+        }
         const data = await res.json();
         console.log(data);
     };
 
     if (error) return <div>Error</div>
-    if (isLoading || userLoading) return <div>Loading...</div>;
+    if (userLoading) return <div>Loading...</div>;
 
     return (
         <div>

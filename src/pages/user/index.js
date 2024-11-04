@@ -10,18 +10,7 @@ const UserProfile = () => {
     const videoId = "tOBIdgwDYH0";
 
     const { data: session, isLoading } = useSWR('/api/auth/session', getSession);
-    const fetcher = (url) => fetch(
-        url,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    ).then((res) => res.json());
-
-
-    const { data: lessonData, error: lessonDataFetchError, isLoading: lessonLoading } = useSWR('http://localhost:3000/api/course/findByUser', fetcher);
+    const { data: lessonData, error: lessonDataFetchError, isLoading: lessonLoading } = useSWR('http://localhost:3000/api/course/findByUser');
 
 
     useEffect(() => {
@@ -35,6 +24,10 @@ const UserProfile = () => {
     console.log("Lesson data", lessonData?.data ? lessonData?.data[0] : "hhe")
     console.log("Card data", cardData)
 
+
+    if (lessonDataFetchError) {
+        return <div>ERROR...</div>
+    }
 
     if (isLoading || lessonLoading) {
         return <div>Loading...</div>

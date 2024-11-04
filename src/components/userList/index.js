@@ -1,17 +1,8 @@
 import useSWR from "swr";
 
 const UserList = ({ role }) => {
-    const fetcher = (url) => fetch(
-        url,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    ).then((res) => res.json());
 
-    const { data: userList, error, isLoading } = useSWR(`http://localhost:3000/api/admin/findUserByRole/${role}`, fetcher);
+    const { data: userList, error, isLoading } = useSWR(`http://localhost:3000/api/admin/findUserByRole/${role}`);
     let ctr = 0;
 
     if (error) return <div>Хэрэглэгчийн лист</div>
