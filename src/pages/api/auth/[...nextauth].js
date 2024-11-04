@@ -90,7 +90,6 @@ export const authOptions = {
             session.user.email = token.email;
             session.user.username = token.username;
             session.user.role = token.role;
-            session.accessToken = token;
             return session;
         }
     }
