@@ -1,5 +1,5 @@
 import { connectToDB } from "../../utils/mongooseImp";
-import {User} from "../../models";
+import { User } from "../../models";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
@@ -15,7 +15,6 @@ export default async function handler(req, res) {
             res.status(500).json({ message: 'Error creating user', error });
         }
     } else {
-        // Handle other HTTP methods
         res.setHeader('Allow', ['POST']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }

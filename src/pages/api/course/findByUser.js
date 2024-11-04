@@ -1,17 +1,13 @@
 import { connectToDB } from "@/pages/utils/mongooseImp";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
-export const config = {
-    api: {
-        bodyParser: false
-    }
-};
 
 export default async function handler(req, res) {
     const dummyData = {
         course: [
             {
-                name: "Curriculum name",
+                name: "Course name",
                 description: "Description",
                 teacher: "Teacher name",
                 wholeDuration: "3000",
@@ -24,7 +20,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
         await connectToDB();
 
-        const session = await getSession({ req });
+        const session = await getServerSession(req, res, authOptions);
 
         if (!session) {
             res.status(401).json({ message: 'Unauthorized' });

@@ -29,7 +29,7 @@ const ProductPage = (req, res) => {
 
     const { data: novelData, error: novelError, isLoading: novelLoading } = useSWR('http://localhost:3000/api/mongodbLibUsage', fetcher);
 
-    const { data: userData, error: userError, isLoading: userLoading } = useSWR('http://localhost:3000/api/user/privateUser', fetcher);
+    const { data: userData, error: userError, isLoading: userLoading } = useSWR('http://localhost:3000/api/userCrud/privateUser', fetcher);
 
     if (novelError || userError) return <div>Failed to load</div>;
     if (novelLoading || userLoading) return <div>Loading...</div>;
