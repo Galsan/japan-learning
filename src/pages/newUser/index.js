@@ -11,6 +11,8 @@ const NewUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = new FormData(e.currentTarget);
+
 
         if (password !== confirmPassword) {
             alert('Passwords do not match');
@@ -18,12 +20,12 @@ const NewUser = () => {
         }
 
         // Save user password and additional info to the database
-        const response = await fetch('/api/user/saveNewUser', {
+        const response = await fetch('/api/userCrud/saveNewUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password, username }),
+            body: JSON.stringify(data.getAll),
         });
 
         if (response.ok) {

@@ -11,7 +11,7 @@ const UserList = ({ role }) => {
         }
     ).then((res) => res.json());
 
-    const { data: userList, error, isLoading } = useSWR(`http://localhost:3000/api/user/findUserByRole/${role}`, fetcher);
+    const { data: userList, error, isLoading } = useSWR(`http://localhost:3000/api/admin/findUserByRole/${role}`, fetcher);
     let ctr = 0;
 
     if (error) return <div>Хэрэглэгчийн лист</div>

@@ -15,7 +15,6 @@ export default async function handler(req, res) {
             res.status(500).json({ message: 'Error creating user', error });
         }
     } else {
-        // Handle other HTTP methods
         res.setHeader('Allow', ['POST']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }

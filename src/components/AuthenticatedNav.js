@@ -7,11 +7,17 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-o
 const AuthenticatedNav = ({ role }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
 
+    let operationId = 1;
+
+    const roleAction = [
+        { id: operationId++, label: "Working in Japan Request", href: "/workingRequest" },
+        { id: operationId++, label: "Teacher Request", href: "/teacherRequest" },
+    ]
+
     const profileAction = [
-        { id: 201, label: "Sign Out", href: "/auth/signOut" },
-        { id: 201, label: "Sign Blah", href: "/auth/signOut" },
-        { id: 201, label: "Sign hhaha", href: "/auth/signOut" },
-        { id: 201, label: "Sign nahhh", href: "/auth/signOut" }
+        { id: operationId++, label: "My Information", href: "/user/profile" },
+        ...roleAction,
+        { id: operationId++, label: "Sign Out", href: "/auth/signOut" }
     ]
 
     const menuItems =
@@ -22,7 +28,7 @@ const AuthenticatedNav = ({ role }) => {
         ] :
             role === "teacher" ? [
                 { id: 1, label: 'Home', href: '/teacher/' },
-                { id: 2, label: 'Curriculum', href: '/teacher/curriculum' },
+                { id: 2, label: 'Course', href: '/teacher/course' },
             ] :
                 [
                     { id: 1, label: 'Home', href: '/' },
@@ -56,10 +62,8 @@ const AuthenticatedNav = ({ role }) => {
                                 </DropdownTrigger>
                                 <DropdownMenu aria-label="Static Actions" className='bg-gray-800 border-spacing-4 border-black '>
                                     {profileAction.map(({ id, label, href }) => (
-                                        <DropdownItem key={id}>
-                                            <Link href={href} className="text-gray-300 hover:text-white">
-                                                {label}
-                                            </Link>
+                                        <DropdownItem key={id} href={href} className="text-gray-300 hover:text-white">
+                                            {label}
                                         </DropdownItem>
                                     ))}
                                 </DropdownMenu>
