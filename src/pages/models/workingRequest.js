@@ -6,8 +6,7 @@ const teacherRequestSchema = new Schema({
     firstName: String,
     lastName: String,
     occupation: String,
-    personalIdentificationExtenstion: String,
-    diplomaExtension: String,
+    fileExtention: String,
     updatedDate: { type: Date, default: Date.now },
     status: {
         type: String,

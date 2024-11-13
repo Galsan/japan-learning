@@ -1,5 +1,5 @@
 import AuthenticatedNav from "@/components/AuthenticatedNav";
-import withAuth from "@/components/withAuth";
+import WithAuth from "@/components/withAuth";
 
 const TeacherHome = () => {
     return (
@@ -12,4 +12,4 @@ const TeacherHome = () => {
     );
 }
 
-export default withAuth(TeacherHome, ['teacher'])
+export default WithAuth(TeacherHome, ['teacher'])

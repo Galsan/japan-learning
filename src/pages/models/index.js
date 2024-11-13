@@ -1,13 +1,13 @@
 import User from './user';
 import Course from './course';
 import TeacherRequest from './teacherRequest';
-import Purchasement from './user/purchasement';
+import Purchase from './user/purchase';
 
 //public using schemas
 export { User, Course, TeacherRequest };
 
 //user using schemas
-export { Purchasement }
+export { Purchase }
 
 //teacher using schemas
 //admin using schemas

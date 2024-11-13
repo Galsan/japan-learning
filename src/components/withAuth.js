@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import useSWR from 'swr';
 
-const withAuth = (Component, allowedRoles) => {
+const WithAuth = (Component, allowedRoles) => {
   const AuthComponent = (props) => {
     const { data: session, isLoading } = useSWR('/api/auth/session', getSession);
 
@@ -37,4 +37,4 @@ const withAuth = (Component, allowedRoles) => {
   return AuthComponent;
 };
 
-export default withAuth;
+export default WithAuth;
