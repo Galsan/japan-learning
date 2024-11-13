@@ -7,7 +7,7 @@ const courseSchema = new Schema({
   _teacherId: Schema.Types.ObjectId,
   wholeDuration: Number,
   durationOfEachClass: Number,
-  thumbnail_url: String
+  thumbnailUrl: String
 });
 
 const Course = mongoose.models.Course || mongoose.model('Course', courseSchema);

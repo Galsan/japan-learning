@@ -1,14 +1,14 @@
 import { useState } from "react";
 import UserList from "@/components/userList";
 import AuthenticatedNav from "@/components/AuthenticatedNav";
-import withAuth from "@/components/withAuth";
+import WithAuth from "@/components/withAuth";
 
 const AdminUserList = () => {
     const [currentMenu, setCurrentMenu] = useState("user");
 
     return (
         <div className="w-full flex flex-col">
-            <AuthenticatedNav />
+            <AuthenticatedNav role="admin" />
             <div>
                 <div className="flex justify-around pt-2">
                     <button onClick={() => setCurrentMenu("user")}>Хэрэглэгчийн жягсаалт</button>
@@ -20,4 +20,4 @@ const AdminUserList = () => {
     );
 }
 
-export default withAuth(AdminUserList, ['admin'])
+export default WithAuth(AdminUserList, ['admin'])

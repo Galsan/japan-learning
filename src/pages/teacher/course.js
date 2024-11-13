@@ -16,9 +16,9 @@ export default function Course() {
         const body = {
             courseName: formData.get("courseName"),
             description: formData.get("description"),
-            Duration: formData.get("Duration"),
-            DurationOfEachClass: formData.get("DurationOfEachClass"),
-            ThumnailUrl: formData.get("ThumnailUrl")
+            wholeDuration: formData.get("wholeDuration"),
+            durationOfEachClass: formData.get("durationOfEachClass"),
+            thumbnailUrl: formData.get("thumbnailUrl")
         };
 
         const res = await fetch('/api/course/saveCourse', {
@@ -33,6 +33,11 @@ export default function Course() {
             setOpen(false);
             alert('Saved your course');
         }
+        if (res.error) {
+            console.log("there is error", res.error)
+            alert("this is error", res.error)
+        }
+
         const data = await res.json();
         console.log(data);
     };
@@ -73,10 +78,10 @@ export default function Course() {
                         <form onSubmit={handleSubmit} className='w-3/5 mt-8 text-xl text-black font-semibold flex flex-col'>
                             {/* <label for="html">HTML</label> */}
                             <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='courseName' name="courseName" id="courseName" />
-                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='description' name="description" id="courseDescription" />
-                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='Duration' name="Duration" id="courseDuration" />
-                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='DurationOfEachClass' name="DurationOfEachClass" id="DurationOfEachClass" />
-                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='ThumnailUrl' name="ThumnailUrl" id="ThumbnailUrl" />
+                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='description' name="description" id="description" />
+                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='WholeDuration' name="wholeDuration" id="wholeDuration" />
+                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='DurationOfEachClass' name="durationOfEachClass" id="durationOfEachClass" />
+                            <input type="text" className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md" placeholder='thumbnailUrl' name="thumbnailUrl" id="thumbnailUrl" />
                             <button type="submit">Submit</button>
                         </form>
                     </div>

@@ -5,15 +5,17 @@ import AuthenticatedNav from "@/components/AuthenticatedNav";
 const CredentialsForm = () => {
     const router = useRouter();
     const [error, setError] = useState(null);
-    const [file, setFile] = useState(null);
+    const [personalIdentificationFile, setPersonalIdentifiactionFile] = useState(null);
+    const [diplomaFile, setDiplomaFile] = useState(null);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        formData.append('file', file)
+        formData.append('personalIdentificationFile', personalIdentificationFile)
+        formData.append('diplomaFile', diplomaFile)
 
-        const response = await fetch('/api/upload', {
+        const response = await fetch('/api/teacherRequest', {
             method: 'POST',
             body: formData,
         });
@@ -43,25 +45,45 @@ const CredentialsForm = () => {
                         </span>
                     )}
                     <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
+                        type="text"
+                        name="firstName"
+                        placeholder="First Name"
                         required
                         className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md"
                     />
                     <input
                         type="text"
-                        name="text"
-                        placeholder="Text"
+                        name="lastName"
+                        placeholder="Last Name"
                         required
                         className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md"
                     />
+                    <label className=" text-white" htmlFor="personalIdentificationFile">
+                        Personal identification</label>
                     <input
-                        id="fileInput"
+                        id="personalIdentificationFile"
                         type="file"
+                        required
+                        className="block w-full px-4 mb-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        placeholder="Diploma"
+                        onChange={(e) => setPersonalIdentifiactionFile(e.target.files[0])}
+                    />
+                    <input
+                        type="text"
+                        name="occupation"
+                        placeholder="Occupation"
+                        required
+                        className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md"
+                    />
+                    <label className=" text-white" htmlFor="diplomaFile">
+                        Diploma identification</label>
+                    <input
+                        id="diplomaFile"
+                        type="file"
+                        required
                         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        placeholder="Upload file"
-                        onChange={(e) => setFile(e.target.files[0])}
+                        placeholder="Diploma"
+                        onChange={(e) => setDiplomaFile(e.target.files[0])}
                     />
                     <button
                         type="submit"

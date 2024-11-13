@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UserList from "@/components/userList";
 import AuthenticatedNav from "@/components/AuthenticatedNav";
-import withAuth from "@/components/withAuth";
+import WithAuth from "@/components/withAuth";
 
 const AdminHome = () => {
     const [currentMenu, setCurrentMenu] = useState("user");
@@ -20,4 +20,4 @@ const AdminHome = () => {
     );
 }
 
-export default withAuth(AdminHome, ['admin'])
+export default WithAuth(AdminHome, ['admin'])

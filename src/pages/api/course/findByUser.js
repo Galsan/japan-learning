@@ -27,7 +27,7 @@ export default async function handler(req, res) {
             return;
         }
 
-        res.status(200).json({ data: dummyData.course });
+        res.status(200).json({ data: dummyData.course, session });
     } else {
         res.setHeader('Allow', ['GET']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
